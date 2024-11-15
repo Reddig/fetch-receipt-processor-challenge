@@ -152,9 +152,11 @@ func CalculatePurchaseDatePoints(date string) int {
 }
 
 func CalculatePurchaseTimePoints(time string) int {
+	// break up the time string such that 12:34 would become ["12", "34"]
 	splitTimes := strings.Split(time, ":")
-	if splitTimes[0] == "15" {
+	if splitTimes[0] == "15" { // all after and including 3:00pm are ok
 		return 10
+	// all times after 2pm and before 4pm, make sure to exclude 2 and 4pm themselves (14:00 and 16:00)
 	} else if (splitTimes[0] == "14" || splitTimes[0] == "16") && (splitTimes[1] != "00") {
 		return 10
 	}
