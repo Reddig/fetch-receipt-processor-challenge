@@ -3,10 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"fetch-receipt-processor-challenge/src/models"
-
-	// "fmt"
 	"net/http"
-
 	"github.com/gorilla/mux"
 )
 

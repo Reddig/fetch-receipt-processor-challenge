@@ -19,7 +19,7 @@ func ValidateRetailer(retailer string) error {
 func ValidatePurchaseDate(purchaseDate string) error {
 	_, err := time.Parse("2006-01-02", purchaseDate)
 	if err != nil {
-		return errors.New("purchase date " + purchaseDate + " does not meet date format YYYY-MM-dd")
+		return errors.New("purchase date " + purchaseDate + " is invalid")
 	}
 	return nil
 }
@@ -37,7 +37,7 @@ func ValidateTotal(total string, items []Item) error {
 	totalRegex := `^\d+\.\d{2}$`
 	re := regexp.MustCompile(totalRegex)
 	if !re.MatchString(total) {
-		return errors.New("total " + total + " is invalid")
+		return errors.New("total " + total + " is invalid. Note: Must include 2 decimal places.")
 	}
 	var itemTotal = 0.0
 	// we want to check that the sum total is correct for the price of all items
@@ -50,7 +50,7 @@ func ValidateTotal(total string, items []Item) error {
 	floatTotal = RoundTo(floatTotal, 2)
 	itemTotal = RoundTo(itemTotal, 2)
 	if itemTotal != floatTotal {
-		return errors.New("item total " + strconv.FormatFloat(itemTotal, 'f', -1, 64) + " does not match given total " + strconv.FormatFloat(floatTotal, 'f', -1, 64))
+		return errors.New("item total " + strconv.FormatFloat(itemTotal, 'f', 2, 64) + " does not match given total " + strconv.FormatFloat(floatTotal, 'f', -1, 64))
 	}
 	return nil
 }
