@@ -44,6 +44,8 @@ func ValidateTotal(total string, items []Item) error {
 	return nil
 }
 
+
+
 func RoundTo(n float64, decimals uint32) float64 {
 	return math.Round(n*math.Pow(10, float64(decimals))) / math.Pow(10, float64(decimals))
   }
