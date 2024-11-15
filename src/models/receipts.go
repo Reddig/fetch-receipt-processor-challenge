@@ -1,14 +1,13 @@
 package models
 
 import (
-	"errors"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
-
 	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"
+	// "fmt"
 )
 
 // Receipt represents a receipt with an ID and a name
@@ -28,16 +27,6 @@ var ReceiptStorage = map[string]Receipt{}
 
 // AddReceipt adds a receipt to the storage
 func AddReceipt(receipt Receipt) (string, error) {
-	_, err := time.Parse("2006-01-02", receipt.PurchaseDate)
-	if err != nil {
-		return "", errors.New("purchase date does not meet date format YYYY-MM-dd")
-	}
-	timeRegex := `^(?:[01]\d|2[0-3]):[0-5]\d$`
-	re := regexp.MustCompile(timeRegex)
-	if !re.MatchString(receipt.PurchaseTime) {
-		return "", errors.New("purchase time does not meet date format HH:MM")
-	}
-
 	receipt.ID = uuid.New().String()
 	ReceiptStorage[receipt.ID] = receipt
 	return receipt.ID, nil
@@ -59,7 +48,25 @@ func GetAllReceipts() []Receipt {
 }
 
 func ValidateReceipt(receipt Receipt) error {
-	return validate.Struct(receipt)
+	if err := validate.Struct(receipt); err != nil {
+		return err
+	}
+	if err := ValidatePurchaseDate(receipt.PurchaseDate); err != nil {
+		return err
+	}
+	if err := ValidatePurchaseTime(receipt.PurchaseTime); err != nil {
+		return err
+	}
+	for _, item := range receipt.Items {
+		if err := ValidateItem(item); err != nil {
+			return err
+		}
+	}
+	if err := ValidateTotal(receipt.Total, receipt.Items); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // calculates the points for a receipt

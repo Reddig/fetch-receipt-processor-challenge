@@ -1,4 +1,4 @@
-json=$(curl -X POST -H "Content-Type: application/json" -d '{"retailer": "CVS123;&*(#$%456", "purchaseDate": "2020-01-01", "purchaseTime": "15:59", "items": [{"id": "1", "shortDescription": "an item1", "price": "10000000"},{"id": "2", "shortDescription": "   123456     ", "price": "101"},{"id": "3", "shortDescription": "123456   ", "price": "100"}], "total": "100.00"}' http://localhost:8080/receipts/process)
+json=$(curl -X POST -H "Content-Type: application/json" -d '{"retailer": "CVS123;&*(#$%456", "purchaseDate": "2020-01-01", "purchaseTime": "15:59", "items": [{"id": "1", "shortDescription": "an item1", "price": "10000000.00"},{"id": "2", "shortDescription": "   123456     ", "price": "101.00"},{"id": "3", "shortDescription": "123456   ", "price": "100.00"}], "total": "10000201.00"}' http://localhost:8080/receipts/process)
 echo $json
 id=$(echo $json | jq -r '.id')
 curl "http://localhost:8080/receipts/$id/points"
