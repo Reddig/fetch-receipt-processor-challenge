@@ -21,6 +21,6 @@ In addition, I am using the `testing` library to write more extensive tests. To 
 
 ## Additional Info
 
-I added an additional route at `/receipts/{id}` to easily retrieve a given receipt. This was used for testing and I decided to leave it. In addition, I added the `/receipts` endpoint to return all receipts and a `/` endpoint to test that the server is running. 
+I added an additional route at `/receipts/{id}` to easily retrieve a given receipt. This was used for testing and I decided to leave it.
 
 I used this exercise to learn basic Go coding techniques. I attempted to apply best practices but this is my first time exploring the language.

@@ -11,7 +11,6 @@ func InitRouter() *mux.Router {
 	router := mux.NewRouter()
 
 	// Map routes to handlers
-	router.HandleFunc("/", handlers.HomeHandler).Methods("GET")
 	router.HandleFunc("/receipts/{id}/points", handlers.ReceiptPointsHandler).Methods("GET")
 	router.HandleFunc("/receipts/{id}", handlers.ReceiptHandler).Methods("GET")
 	router.HandleFunc("/receipts", handlers.ReceiptsHandler).Methods("GET")
