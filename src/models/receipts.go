@@ -51,6 +51,9 @@ func ValidateReceipt(receipt Receipt) error {
 	if err := validate.Struct(receipt); err != nil {
 		return err
 	}
+	if err := ValidateRetailer(receipt.PurchaseDate); err != nil {
+		return err
+	}
 	if err := ValidatePurchaseDate(receipt.PurchaseDate); err != nil {
 		return err
 	}

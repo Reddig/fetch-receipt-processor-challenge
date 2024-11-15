@@ -2,8 +2,6 @@ package models
 
 import (
 	"github.com/google/uuid"
-	"regexp"
-	"errors"
 )
 
 // Item represents a item with an ID and a name

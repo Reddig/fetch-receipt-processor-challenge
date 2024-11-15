@@ -7,6 +7,16 @@ import (
 	// "fmt"
 	"math"
 )
+
+func ValidateRetailer(retailer string) error {
+	retailerRegex := `^[\w\s\-&]+$`
+	re := regexp.MustCompile(retailerRegex)
+	if !re.MatchString(retailer) {
+		return errors.New("retailer name is invalid")
+	}
+	return nil
+}
+
 func ValidatePurchaseDate(purchaseDate string) error {
 	_, err := time.Parse("2006-01-02", purchaseDate)
 	if err != nil {
